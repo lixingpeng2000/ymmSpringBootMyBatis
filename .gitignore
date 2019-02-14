@@ -1,5 +1,7 @@
 ##ignore this file##
 /target/ 
+/lib/
+/log/
 
 .classpath
 .project
