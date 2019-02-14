@@ -8,26 +8,24 @@ import com.lxp.entity.JobEntity;
 import com.lxp.entity.UserEntity;
 
 public interface IJobService {
-	//调用数据库的增加操作
-	public boolean insert(JobEntity job) throws SQLException;
-	//调用数据库删除操作
-	public boolean delete(int id);
-			
-	//调用数据库的查询操作
-	public JobEntity find(JobEntity job) throws SQLException;
-	public List findBycity() throws SQLException;
-	public List findBycityList(String city) throws SQLException;
-	public List findJobClassList() throws SQLException;
-	public List findJobDeptList()throws SQLException;
-	public List findByJnameList(String jKeyword,String city) throws SQLException;
-	public List findByCityandJclassList(String city,String jclass) throws SQLException;
-	public List findByCityandDeptList(String city, String dept) throws SQLException;
-	public List findBySelectAllList(String city, String jclass, String dept) throws SQLException;
-	public List findByJnameandCityList(String jname, String city) throws SQLException;
-	public List findJobAllList() throws SQLException;
-	public boolean deleteJobById(String id) throws SQLException;
-	public boolean update(JobEntity job) throws SQLException;
-	public List findEmployJobList() throws SQLException;
-	public List findByALLConditionerList(String jname, String city, String dept, String jclass, String nature) throws SQLException;
+	public boolean insert(JobEntity job) ;
+	public boolean delete(int id);	
+	public JobEntity find(JobEntity job) ;
+	public List findBycity() ;
+	public List findBycityList(String city) ;
+	public List findJobClassList() ;
+	public List findJobDeptList();
+	public List findByJnameList(String jKeyword,String city) ;
+	public List findByCityandJclassList(String city,String jclass) ;
+	public List findByCityandDeptList(String city, String dept) ;
+	public List findBySelectAllList(String city, String jclass, String dept);
+	public List findByJnameandCityList(String jname, String city) ;
+	public List findJobAllList(String flag) ;
+	public boolean deleteJobById(String id) ;
+	public boolean deleteBatch(List jnolist) ;
+	public boolean update(JobEntity job) ;
+	public List findEmployJobList() ;
+	public List findByALLConditionerList(String jname, String city, String dept, String jclass, String nature) ;
+	public boolean rescue(String id);
 
 }

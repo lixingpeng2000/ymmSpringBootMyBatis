@@ -1,4 +1,5 @@
-
+//全局变量
+var token=null;
 // 页面加载发送该接口
 window.onload = function() {
     clearValue();
@@ -31,12 +32,11 @@ function submitLogin(){
 		dataType:"json",
 		success:function(data){
             if(data.resultCode == "200"){
+                token = data.token;
+                document.cookie = 'token='+token;
                 alert("恭喜用户："+data.username+"登录成功!");
                 location.href='http://localhost/ymm/';
-                console.log(1111);
-                document.getElementById("productId").style.display = "block";
-                 console.log(1133311);
-            }else {
+               }else {
                 alert("用户名或者密码错误");
             }    
 		}

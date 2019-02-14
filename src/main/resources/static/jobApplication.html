@@ -55,24 +55,28 @@
                     <div class="midContainer">
                         <div class="topPart">
                             <div class="top-left">
-                                <p class="subTopic">上传</p>
+                                <p class="subTopic">上传简历*</p>
                                 <hr>
-                                <div class="subFile">
-                                    <p class="subTitle">上传简历</p>
+                                <div class="subFile" id="bannerId">
+                                  <!--   <p class="subTitle">上传简历</p>
                                     <span class="fileinput-button" id="introduceId">
            							  <span>上传简历</span>
                                     <input type="file" id="introduceInput">
                                     </span>
-                                    <p class="subCommit">支持PDF、HTML、WORD、TXT、PPT、EML、JPG、PNG、WPS等简历格式</p>
+                                    <p class="subCommit">支持PDF、HTML、WORD、TXT、PPT、EML、JPG、PNG、WPS等简历格式</p> -->
+                                    <input type="file" id="frontImg"  class="fileclass" name="myfiles" accept="image/*" onchange="ajaxFileUpload(this)">
+                                    <img src="" alt="" id="img">
                                 </div>
-                                <div class="subFile">
+
+
+<!--                                 <div class="subFile">
                                     <p class="subTitle">上传附件</p>
                                     <span class="fileinput-button" id="fileId">
            							<span>上传附件</span>
                                     <input type="file" id="fileInput">
                                     </span>
                                     <p class="subCommit">所有附件大小总和不超过50MB</p>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="top-right">
                             	<div class="block">
@@ -131,9 +135,11 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript" src="script/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="script/jobApplication.js"></script>
     <script type="text/javascript" src="script/common.js"></script>
-    <script type="text/javascript" src="script/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="script/qiniu.min.js"></script>
+    <script type="text/javascript" src="script/plupload.full.min.js"></script>
 </body>
 
 </html>

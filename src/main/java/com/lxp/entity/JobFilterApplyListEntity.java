@@ -1,7 +1,7 @@
 package com.lxp.entity;
 
 public class JobFilterApplyListEntity {
-	private Integer id;
+	private String id;
 	private String ename;
 	private String tel;
 	private String jname;
@@ -10,10 +10,17 @@ public class JobFilterApplyListEntity {
 	private String nature;
 	private String duty;
 	private String req;
-	public Integer getId() {
+	private String cv;
+	public String getCv() {
+		return cv;
+	}
+	public void setCv(String cv) {
+		this.cv = cv;
+	}
+	public String getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getEname() {

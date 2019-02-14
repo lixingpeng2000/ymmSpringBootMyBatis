@@ -129,3 +129,39 @@ body div {
     border-radius: 20px;
     cursor: pointer;
 }
+
+.bigdiv {
+    display: flex;
+    width:300px;
+    justify-content: center;
+    height:30px;
+    margin-top: 10px;
+    margin-left: 5px;
+}
+.smalldiv {
+    display: inline;
+    width: 100px;
+    height: 30px;
+}
+#imgId {
+    width: inherit;
+    height:inherit;
+    border:solid 1px black;
+}
+#codeIddiv {
+    display: flex;
+}
+#codeEnter {
+    width: 100px;
+}
+.smalldiv a {
+    position: relative;
+    top: -10px;
+    left: 20px;
+    text-decoration: none;
+}
+.code {
+    position: relative;
+    top: -60px;
+    left: 30px;
+}

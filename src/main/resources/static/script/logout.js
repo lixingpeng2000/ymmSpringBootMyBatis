@@ -31,14 +31,15 @@ function getuserlogininfo() {
                     }
                 },
                 error : function(err) {
-                    console.log(err);
+                    alert(err.responseText.split("message")[1].split("trace")[0]);
+                    location.href='http://localhost/ymm';
                 }
             });
 };
 
 function logoutFunction(){
     var username = document.getElementById("usernameout").value;
-    $.ajax({
+    $.ajax({    
         url:"http://localhost/ymm/user?username="+username,
         contentType: "application/json",
         cache :false,
@@ -54,7 +55,11 @@ function logoutFunction(){
                 }else {
                     alert("注销失败!");
                 } 
-          }
+          },
+        error : function(err) {
+                    alert(err.responseText.split("message")[1].split("trace")[0]);
+                    location.href='http://localhost/ymm';
+                }
         });
 }
 document.getElementById("logout").addEventListener('click',logoutFunction)

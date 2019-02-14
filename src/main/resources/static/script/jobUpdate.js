@@ -1,3 +1,5 @@
+//定义全局变量
+var   token = document.cookie.split("=")[1].split(";")[0];
 // 获取当前url的参数
 function getUrlPara(paraName) {
 	var sUrl = location.href;
@@ -56,18 +58,26 @@ function updateUserInfo() {
     var nature = document.getElementById("nature").value; 
     console.log({"id":id,"jname":jobName,"jcity":city,"dept":dept,"jclass":jobClass,"duty":duty,"req":require,"nature":nature})
     $.ajax({
-		url:"http://localhost/ymm/job",
+    headers: {
+          "X-Auth-Token":token
+           }, 
+		url:"http://localhost/ymm/admin/jobshow",
 		contentType: "application/json",
 		type:"put",
 		data:JSON.stringify({"id":id,"jname":jobName,"jcity":city,"dept":dept,"jclass":jobClass,"duty":duty,"req":require,"nature":nature}),
 		dataType:"json",
 		success:function(data){
-			   if(data.resultCode == "200"){
+			   if(data.code == "200"){
 	                alert("岗位更新成功!");
+                  location.href="http://localhost/ymm/jobFilterShow.html"
 	            }else {
 	                alert("岗位更新失败！");
 	            } 
-		  }
+		  },
+    error : function(err) {
+                    alert(err.responseText.split("message")[1].split("trace")[0]);
+                    location.href='http://localhost/ymm';
+                }
         });
 };
 document.getElementById("submitId").addEventListener('click', updateUserInfo);

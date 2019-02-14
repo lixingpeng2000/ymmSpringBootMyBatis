@@ -1,7 +1,7 @@
 package com.lxp.entity;
 
 public class JobEntity {
-	private Integer id;
+	private String id;
 	private String jname;
 	private String jcity;
 	private String dept;
@@ -11,11 +11,11 @@ public class JobEntity {
 	private String nature;
 	private String createDate;
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

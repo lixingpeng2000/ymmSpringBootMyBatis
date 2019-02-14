@@ -8,12 +8,11 @@ import com.lxp.entity.JobEntity;
 import com.lxp.entity.UserEntity;
 
 public interface IJobDAO {
-	//数据库创建方法
+
 	public int doCreate(JobEntity job) throws SQLException;
-	//数据库删除方法
-	public boolean doRemove(int id);
-	//通过id查找
-	public JobEntity findByid(int id);
+
+	public boolean doRemove(String id);
+	public JobEntity findByid(String id);
 	public JobEntity doFind(JobEntity job) throws SQLException;
 	public List findByCity() throws SQLException;
 	public List findByCityList(String city) throws SQLException;
@@ -35,6 +34,9 @@ public interface IJobDAO {
 	public int deleteJobById(String id) throws SQLException;
 	public int update(JobEntity job) throws SQLException;
 	public List findEmployJobList() throws SQLException;
+	public List findJobAllListDelete()throws SQLException;
+
+	public int rescue(String id) throws SQLException;
 
 
 }

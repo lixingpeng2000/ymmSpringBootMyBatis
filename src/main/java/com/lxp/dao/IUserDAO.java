@@ -1,17 +1,24 @@
 package com.lxp.dao;
 
 import java.sql.SQLException;
+import java.util.List;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.lxp.entity.EmployEntity;
 import com.lxp.entity.UserEntity;
 
 public interface IUserDAO {
-	//数据库创建方法
+
 	public int doCreate(UserEntity user) throws SQLException;
-	//数据库删除方法
-	public boolean doRemove(int id);
-	//通过id查找
-	public UserEntity findByid(int id);
-	public UserEntity doFind(UserEntity user) throws SQLException;
+
+	public boolean doRemove(String id);
+
+	public UserEntity findByid(String id);
+	public UserEntity doFind(@Param("username") String username,@Param("pwd")String pwd) throws SQLException;
+
+	public List doFindAll() throws SQLException;
+
+	public UserEntity doFindByusername(String username) throws SQLException;
 
 }

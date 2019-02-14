@@ -1,16 +1,21 @@
-
+//定义全局变量
+var   token = document.cookie.split("=")[1].split(";")[0];
 // 页面加载发送该接口
 window.onload = function() {
 	getemployjobshowtb();
 }
 function getemployjobshowtb() {
+
     $.ajax({
-                url : "http://localhost/ymm/employJobshow",
+                headers: {
+                    "X-Auth-Token":token
+                },
+                url : "http://localhost/ymm/admin/employJobshow",
                 contentType : "application/json",
                 type : "get",
                 dataType : "json",
                 success : function(returnData) {
-                   if (returnData.resultCode == "200") {
+                   if (returnData.code == "200") {
                            var jobinfoData = returnData.data;
                            var tbody = document.getElementById('mainTbId');
                         for(var i = 0;i < jobinfoData.length; i++){ //遍历一下json数据
@@ -23,7 +28,8 @@ function getemployjobshowtb() {
                     }
                 },
                 error : function(err) {
-                    console.log(err);
+                    alert(err.responseText.split("message")[1].split("trace")[0]);
+                    location.href='http://localhost/ymm';
                 }
             });
 };
@@ -32,9 +38,9 @@ function getemployjobshowtb() {
 function getDataRow(h){
      var row = document.createElement('tr'); //创建行   
 
-     var idCell = document.createElement('td'); //创建第一列id
-     idCell.innerHTML = h.id; //填充数据
-     row.appendChild(idCell); //加入行  ，下面类似
+     // var idCell = document.createElement('td'); //创建第一列id
+     // idCell.innerHTML = h.id; //填充数据
+     // row.appendChild(idCell); //加入行  ，下面类似
 
      var usernameCell = document.createElement('td');//创建第二列jname
      usernameCell.innerHTML = h.ename;
@@ -64,10 +70,13 @@ function getDataRow(h){
      idCell.innerHTML = h.req; //填充数据
      row.appendChild(idCell); //加入行  ，下面类似
      
-     var nameCell = document.createElement('td');//创建第9列nature
-     nameCell.innerHTML = h.nature;
-     row.appendChild(nameCell);
-     
+    var cvCell = document.createElement('td');//创建第9列cv
+    var a = document.createElement('a');
+    a.href = h.cv;
+    a.innerText="下载简历";
+    //image.classList.add('cvimg');
+    cvCell.appendChild(a);
+    row.appendChild(cvCell);
      //到这里，json中的数据已经添加到表格中，下面为每行末尾添加删除按钮
      var delCelllast = document.createElement('td');//创建第八列，操作列
      row.appendChild(delCelllast);
@@ -91,12 +100,15 @@ function getDataRow(h){
 
 function delfun(id) {
     $.ajax({
-                url : "http://localhost/ymm/employJobshow?id="+id,
+                headers: {
+                    "X-Auth-Token":token
+                },
+                url : "http://localhost/ymm/admin/employJobshow?id="+id,
                 contentType : "application/json",
                 type : "delete",
                 dataType : "json",
                 success : function(returnData) {
-                   if (returnData.resultCode == "200") {
+                   if (returnData.code == "200") {
                         return true;
                         
                     } else {
@@ -104,7 +116,8 @@ function delfun(id) {
                     }
                 },
                 error : function(err) {
-                    console.log(err);
+                    alert(err.responseText.split("message")[1].split("trace")[0]);
+                    location.href='http://localhost/ymm';
                 }
             });
 };

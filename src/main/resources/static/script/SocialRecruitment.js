@@ -37,7 +37,7 @@ function getCityJob() {
         type:"get",
         dataType:"json",
         success:function(data){     
-               if(data.resultCode == "200"){
+               if(data.code == "200"){
             	   var citydata=data.data;
             	   for(var i=0;i<citydata.length;i++){
             		   var city=citydata[i].jcity;

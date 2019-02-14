@@ -9,12 +9,15 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.lxp.dao.IEmpDAO;
 import com.lxp.entity.EmployEntity;
 import com.lxp.service.IEmpService;
 
 public class EmpServiceImpl implements IEmpService {
+	private static final Logger logger = LoggerFactory.getLogger(EmpServiceImpl.class);
 	private SqlSession session = null;
 
 	public EmpServiceImpl() {
@@ -26,15 +29,15 @@ public class EmpServiceImpl implements IEmpService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// 2������sessionFactory��Ŀ��������session
 		SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(reader);
 		this.session = sessionFactory.openSession(true);
 	}
 
 	public boolean insert(EmployEntity vo) throws SQLException {
-		// �ܸ��ӵ�ҵ�����
-		System.out.println("����ҵ���..insert");
+		System.out.println("service-param:"+vo);
 		IEmpDAO dao = session.getMapper(IEmpDAO.class);// �����ݿ����Ӵ���dao��
+		logger.info("param:"+vo);
+		System.out.println(dao);
 		return dao.doCreate(vo);
 	}
 
@@ -44,8 +47,8 @@ public class EmpServiceImpl implements IEmpService {
 	}
 
 	public boolean deleteEmployById(String id) throws SQLException {
-		System.out.println("����ҵ���..deleteEmployById");
 		IEmpDAO dao = session.getMapper(IEmpDAO.class);// �����ݿ����Ӵ���dao��
+		logger.info("param:"+id);
 		if(dao.doRemove(id)>0){
 			return true;
 		}else{
@@ -55,13 +58,12 @@ public class EmpServiceImpl implements IEmpService {
 	}
 
 	public boolean findBytel(String tel, String jname, String jcity) throws SQLException {
-		System.out.println("����ҵ���..findBytel");
 		EmployEntity emp = new EmployEntity();
 		emp.setTel(tel);
 		emp.setJname(jname);
 		emp.setJcity(jcity);
-		// �ܸ��ӵ�ҵ�����
-		IEmpDAO dao = session.getMapper(IEmpDAO.class);// �����ݿ����Ӵ���dao��
+		logger.info("param:"+emp);
+		IEmpDAO dao = session.getMapper(IEmpDAO.class);
 		if(null == dao.findByTel(emp)){
 			return false;
 		}else{

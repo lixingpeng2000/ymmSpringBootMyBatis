@@ -80,10 +80,14 @@ body div {
     left:   -500px;
 }
 
-
+.fileclass {
+    margin-bottom: 50px;
+}
 /*
 *姝ｆ枃**/
-
+#img {
+    width:100px;
+}
 .mainContainer {
     margin-top: 80px;
     border: solid 1px black;

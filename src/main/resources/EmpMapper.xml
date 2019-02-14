@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lxp.dao.IEmpDAO">
    <insert id="doCreate" parameterType="com.lxp.entity.EmployEntity">
-       insert into emp(ename,tel,mail,jname,jcity) values(#{ename},#{tel},#{mail},#{jname},#{jcity})
+       insert into emp(id,ename,tel,mail,jname,jcity,cv) values(#{empNo},#{ename},#{tel},#{mail},#{jname},#{jcity},#{cv})
    </insert>
    
   <delete  id="doRemove"  parameterType="String"> 

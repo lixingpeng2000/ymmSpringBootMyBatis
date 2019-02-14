@@ -24,7 +24,7 @@ function getjobinfo() {
 				type : "get",
 				dataType : "json",
 				success : function(returnData) {
-					if (returnData.resultCode == "200") {
+					if (returnData.code == "200") {
 						var jobinfoData = returnData.data;
 							var jcity = jobinfoData[0].jcity;
 							var jname = jobinfoData[0].jname;

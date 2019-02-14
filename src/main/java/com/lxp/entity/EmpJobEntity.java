@@ -1,7 +1,7 @@
 package com.lxp.entity;
 
 public class EmpJobEntity {
-	private int id;
+	private String id;
 	private String ename;
 	private String tel;
 	private String jname;
@@ -10,8 +10,11 @@ public class EmpJobEntity {
 	private String nature;
 	private String duty;
 	private String req;
-	public int getId() {
+	public String getId() {
 		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getEname() {
 		return ename;
@@ -61,7 +64,7 @@ public class EmpJobEntity {
 	public void setReq(String req) {
 		this.req = req;
 	}
-	public EmpJobEntity(int id, String ename, String tel, String jname, String jcity, String jclass, String nature,
+	public EmpJobEntity(String id, String ename, String tel, String jname, String jcity, String jclass, String nature,
 			String duty, String req) {
 		super();
 		this.id = id;

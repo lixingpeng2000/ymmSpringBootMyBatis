@@ -1,16 +1,20 @@
-
+//定义全局变量
+var   token = document.cookie.split("=")[1].split(";")[0];
 // 页面加载发送该接口
 window.onload = function() {
     getjobshowtb();
 }
 function getjobshowtb() {
     $.ajax({
-                url : "http://localhost/ymm/jobshow",
+                headers: {
+                "X-Auth-Token":token
+                    },
+                url : "http://localhost/ymm/admin/jobshow?flag=true",
                 contentType : "application/json",
                 type : "get",
                 dataType : "json",
                 success : function(returnData) {
-                   if (returnData.resultCode == "200") {
+                   if (returnData.code == "200") {
                            var jobinfoData = returnData.data;
                            var tbody = document.getElementById('tbId');
                         for(var i = 0;i < jobinfoData.length; i++){ //遍历一下json数据
@@ -23,7 +27,9 @@ function getjobshowtb() {
                     }
                 },
                 error : function(err) {
-                    console.log(err);
+                    console.log(err.responseText.split("message")[1].split("at")[0]);
+                    alert(err.responseText.split("message")[1].split("trace")[0]);
+                    location.href='http://localhost/ymm';
                 }
             });
 };
@@ -31,11 +37,16 @@ function getjobshowtb() {
 
 function getDataRow(h){
      var row = document.createElement('tr'); //创建行   
-
-     var idCell = document.createElement('td'); //创建第一列id
-     idCell.innerHTML = h.id; //填充数据
-
-     row.appendChild(idCell); //加入行  ，下面类似
+     //var idCell = document.createElement('td'); //创建第一列id
+     // idCell.innerHTML = h.id; //填充数据
+     // row.appendChild(idCell); //加入行  ，下面类似
+     var selectCell = document.createElement('td');
+     var btn = document.createElement('input'); //创建一个input控件
+     btn.setAttribute('type','checkbox'); //type="button"
+     btn.setAttribute('name','test'); //type="button"
+     btn.setAttribute('value',h.id); //type="button"
+     row.appendChild(selectCell);
+     selectCell.appendChild(btn);
      
      var nameCell = document.createElement('td');//创建第二列jname
      nameCell.innerHTML = h.jname;
@@ -94,12 +105,15 @@ function getDataRow(h){
 
 function delfun(id) {
     $.ajax({
-                url : "http://localhost/ymm/jobshow?id="+id,
+                headers: {
+                    "X-Auth-Token":token
+                    },
+                url : "http://localhost/ymm/admin/jobshow?id="+id,
                 contentType : "application/json",
                 type : "delete",
                 dataType : "json",
                 success : function(returnData) {
-                   if (returnData.resultCode == "200") {
+                   if (returnData.code == "200") {
                         return true;
                         
                     } else {
@@ -107,10 +121,53 @@ function delfun(id) {
                     }
                 },
                 error : function(err) {
-                    console.log(err);
+                    alert(err.responseText.split("message")[1].split("trace")[0]);
+                    location.href='http://localhost/ymm';
                 }
             });
 };
 
 
+
+
+ document.getElementById("batchDelete").onclick=function(){
+              deleteBatch(); 
+              location.href="http://localhost/ymm/jobFilterShow.html";            
+             
+         }
+function deleteBatch(){
+    var obj = document.getElementsByName("test");
+    var check_val = [];
+    for(k in obj){
+        if(obj[k].checked)
+            check_val.push(obj[k].value);
+    }
+    console.log(check_val);
+    //ajax接口触发
+      $.ajax({
+               
+            headers: {
+                "X-Auth-Token":token
+                    },
+            url:"http://localhost/ymm/admin/jobBatchDelete",
+            contentType: "application/json",
+            type:"post",
+            data:JSON.stringify({"jno":check_val}),
+            dataType:"json",
+                success : function(returnData) {
+                   if (returnData.resultCode == "200") {
+
+                        return true;
+                        
+                    } else {
+                        return false;
+                    }
+                },
+                error : function(err) {
+                    alert(err.responseText.split("message")[1].split("trace")[0]);
+                    location.href='http://localhost/ymm';
+                }
+            });
+    
+}
 

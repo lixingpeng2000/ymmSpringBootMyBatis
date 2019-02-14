@@ -2,9 +2,13 @@ package com.lxp.controller;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,18 +16,30 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
 import com.lxp.factory.ServiceFactory;
+import com.lxp.json.JobListJson;
+import com.lxp.service.IJobService;
 
 @RestController
 @RequestMapping("/jobDefaultList")
 public class JobDefaultListController {
-	
+	@Autowired
+	private IJobService jobService;
+	private static final Logger logger = LoggerFactory.getLogger(JobDefaultListController.class);
+	/**
+     * 统一日志头
+     * @return
+     */
+    private String logHeader() {
+        return "[time]:" + new Date().getTime();
+    }
 	@RequestMapping(method = RequestMethod.GET)
 	public String getJobList(@RequestParam("city") String city){
 		System.out.println("命中jobDefaultList接口的get方法....");
+		logger.info(logHeader());
 		System.out.println(city);
-		try {
-			if (null != ServiceFactory.getIJobServiceIstance().findBycityList(city)) {
-				List cityList = ServiceFactory.getIJobServiceIstance().findBycityList(city);
+
+			if (null != jobService.findBycityList(city)) {
+				List cityList = jobService.findBycityList(city);
 				System.out.println(cityList.size());
 				String objjson = JSON.toJSONString(cityList, true);
 				Iterator it = cityList.iterator();
@@ -55,17 +71,19 @@ public class JobDefaultListController {
 				String objjsonlist = JSON.toJSONString(newcityList, true);
 				System.out.println("objjsonlist:"+objjsonlist);
 				System.out.println("{\"resultCode\":\"200\"" +",\"pageNum\":" + pageNum+ ",\"pageCount\":" + pageCount+ ",\"data\":" + objjsonlist +"}");
-				return "{\"resultCode\":\"200\"" +",\"pageNum\":" + pageNum+ ",\"pageCount\":" + pageCount+ ",\"data\":" + objjsonlist +"}";
+				JobListJson jl=new JobListJson();
+				jl.setCode("200");
+				jl.setPageNum(pageNum);
+				jl.setPageCount(pageCount);
+				jl.setData(newcityList);
+				return JSON.toJSONString(jl);
 
 			} else {
-				System.out.println("�ύʧ��");
-				return "{\"resultCode\":\"500\"}";
+				JobListJson jl=new JobListJson();
+				jl.setCode("500");
+				return JSON.toJSONString(jl);
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+	
 	}
 	
 

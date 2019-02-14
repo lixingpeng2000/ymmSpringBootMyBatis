@@ -16,3 +16,7 @@ function isMailAvailable(str) {
                 return true;
             }
         }
+
+
+
+

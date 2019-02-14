@@ -44,7 +44,7 @@ function getDefaultCityJob() {
 				type : "get",
 				dataType : "json",
 				success : function(returnData) {
-					if (returnData.resultCode == "200") {
+					if (returnData.code == "200") {
 						var citydatalist = returnData.data;
 						pageCount = returnData.pageCount;
 						for (var i = 0; i < citydatalist.length; i++) {
@@ -140,7 +140,7 @@ function getCityJobBypaginate($event) {
 				type : "get",
 				dataType : "json",
 				success : function(returnData) {
-					if (returnData.resultCode == "200") {
+					if (returnData.code == "200") {
 						var citydatalist = returnData.data;
 						pageCount = returnData.pageCount;
 						for (var i = 0; i < citydatalist.length; i++) {
@@ -212,7 +212,7 @@ function getJobClass() {
 				type : "get",
 				dataType : "json",
 				success : function(returnData) {
-					if (returnData.resultCode == "200") {
+					if (returnData.code == "200") {
 						var classdatalist = returnData.data;
 						for (var i = 0; i < classdatalist.length; i++) {
 							jclass = classdatalist[i];
@@ -243,7 +243,7 @@ function getJobDept() {
 				type : "get",
 				dataType : "json",
 				success : function(returnData) {
-					if (returnData.resultCode == "200") {
+					if (returnData.code == "200") {
 						var deptdatalist = returnData.data;
 						for (var i = 0; i < deptdatalist.length; i++) {
 							dept = deptdatalist[i];
@@ -304,7 +304,7 @@ function searchJname() {
 					type : "get",
 					dataType : "json",
 					success : function(returnData) {
-						if (returnData.resultCode == "200") {
+						if (returnData.code == "200") {
 							var citydatalist = returnData.data;
 							pageCount = returnData.pageCount;
 							document.getElementById("jobTableId").innerHTML = "";// 插入了html元素
@@ -399,7 +399,7 @@ function  selectgetfun(){
 				type : "get",
 				dataType : "json",
 				success : function(returnData) {
-					if (returnData.resultCode == "200") {
+					if (returnData.code == "200") {
 						//清除搜索框的内容
 						document.getElementById("searchJob").value="";
 					    console.log(returnData.pageCount);

@@ -3,12 +3,13 @@ package com.lxp.entity;
 import java.io.Serializable;
 
 public class EmployEntity  implements Serializable{
-	private Integer empNo;
+	private String empNo;
 	private String ename;
 	private String tel;
 	private String mail;
 	private String jname;
 	private String jcity;
+	private String cv;
 
 	public String getJname() {
 		return jname;
@@ -38,6 +39,18 @@ public class EmployEntity  implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
+	public String getCv() {
+		return cv;
+	}
+
+	public void setCv(String cv) {
+		this.cv = cv;
+	}
+
+	public void setEmpNo(String empNo) {
+		this.empNo = empNo;
+	}
+
 	public String getEname() {
 		return ename;
 	}
@@ -56,8 +69,14 @@ public class EmployEntity  implements Serializable{
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
-	public Integer getEmpNo() {
+	public String getEmpNo() {
 		return empNo;
+	}
+
+	@Override
+	public String toString() {
+		return "EmployEntity [empNo=" + empNo + ", ename=" + ename + ", tel=" + tel + ", mail=" + mail + ", jname="
+				+ jname + ", jcity=" + jcity + ", cv=" + cv + "]";
 	}
 	
 

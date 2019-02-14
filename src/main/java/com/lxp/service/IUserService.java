@@ -1,17 +1,18 @@
 package com.lxp.service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import com.lxp.entity.EmployEntity;
 import com.lxp.entity.UserEntity;
+import org.springframework.stereotype.Service;
 
 public interface IUserService {
-		//调用数据库的增加操作
+
 		public boolean insert(UserEntity user) throws SQLException;
-		//调用数据库删除操作
 		public boolean delete(int id);
-		
-		//调用数据库的查询操作
 		public UserEntity find(UserEntity user) throws SQLException;
 		public UserEntity findBycity() throws SQLException;
+		public List findAll() throws SQLException;
+		public boolean findByuserName(String username);
 }

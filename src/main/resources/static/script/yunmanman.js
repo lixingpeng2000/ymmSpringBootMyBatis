@@ -1,6 +1,3 @@
-// //nav 悬浮效果
-var indexId = document.getElementById("indexId");
-var yunmanmanId = document.getElementById("yunmanmanId");
 var newsId = document.getElementById("newsId");
 var productId = document.getElementById("productId");
 var humanId = document.getElementById("humanId");
@@ -9,7 +6,7 @@ var newhideid = document.getElementById("new-hide-id");
 var producthideid = document.getElementById("product-hide-id");
 var navlineid = document.getElementById("nav-line-id");
 var navhr = document.getElementById("hrId");
-
+var token = document.cookie.split("=")[1].split(";")[0];
     newsId.addEventListener("mouseenter", function() {
         newhideid.style.display = "block";
         navlineid.style.display = "block";
@@ -86,26 +83,6 @@ var navhr = document.getElementById("hrId");
 
         })
 
-        //导航栏默认效果
-        window.addEventListener("load", function() {
-            indexId.style.backgroundColor = "#fb851d";
-            indexId.style.opacity = 1;
-        })
-
-        //移动到新闻中心和产品中心上，显示明细子菜单
-
-        // var regionCar = document.getElementById("regionCar");
-        // var indexmid1Ele= document.getElementById("indexmid1");
-        // regionCar.addEventListener("mouseenter",function(){
-        // 		setInterval(function(){indexmid1Ele.style.marginTop ="30px";},100);
-
-
-        // })
-        // regionCar.addEventListener("mouseleave",function(){
-        // 		indexmid1Ele.style.marginTop ="";
-
-        // })
-        //
         var wechatEle = document.getElementById("wechat");
         var qrcodeEle = document.getElementById("qrcode");
         wechatEle.addEventListener("click", function() {
@@ -117,30 +94,11 @@ var navhr = document.getElementById("hrId");
         circleIdEle.addEventListener("click", function() {
             qrcodeEle.style.display = "none";
         }) //nav 悬浮效果
-        var indexId = document.getElementById("indexId");
-        var yunmanmanId = document.getElementById("yunmanmanId");
         var newsId = document.getElementById("newsId");
         var productId = document.getElementById("productId");
         var humanId = document.getElementById("humanId"); 
-        indexId.addEventListener("mouseenter", function() {
-            indexId.style.backgroundColor = "#fb851d";
-            indexId.style.opacity = 1;
-        });
-         indexId.addEventListener("mouseleave", function() {
-            indexId.style.backgroundColor = "";
-        })
-
-        yunmanmanId.addEventListener("mouseenter", function() {
-            indexId.style.backgroundColor = "";
-            yunmanmanId.style.backgroundColor = "#fb851d";
-            yunmanmanId.style.opacity = 1;
-        }) ;
-        yunmanmanId.addEventListener("mouseleave", function() {
-            yunmanmanId.style.backgroundColor = "";
-        })
-
         newsId.addEventListener("mouseenter", function() {
-            indexId.style.backgroundColor = "";
+           // indexId.style.backgroundColor = "";
             newsId.style.backgroundColor = "#fb851d";
             newsId.style.opacity = 1;
         });
@@ -149,7 +107,7 @@ var navhr = document.getElementById("hrId");
         })
 
         productId.addEventListener("mouseenter", function() {
-            indexId.style.backgroundColor = "";
+          //  indexId.style.backgroundColor = "";
             productId.style.backgroundColor = "#fb851d";
             productId.style.opacity = 1;
         }) ;
@@ -158,20 +116,14 @@ var navhr = document.getElementById("hrId");
         })
 
         humanId.addEventListener("mouseenter", function() {
-            indexId.style.backgroundColor = "";
+         //   indexId.style.backgroundColor = "";
             humanId.style.backgroundColor = "#fb851d";
             humanId.style.opacity = 1;
         }) ;
         humanId.addEventListener("mouseleave", function() {
             humanId.style.backgroundColor = "";
         })
-        //导航栏默认效果
-        window.addEventListener("load", function() {
-            indexId.style.backgroundColor = "#fb851d";
-            indexId.style.opacity = 1;
-            
-        })
-
+   
     // 页面加载发送该接口
     window.onload = function() {
         getuserlogininfo()
@@ -195,6 +147,8 @@ var navhr = document.getElementById("hrId");
                         span.style.color="white";
                         span.style.fontSize="12px";
                         document.getElementById("buttonId").insertBefore(span,document.getElementById("regisId"));
+                        //成功之后调用获取权限的方法
+                        getResource(username);
                         
                     }else if(returnData.resultCode == "500"){
                            console.log("用户没有登录");
@@ -208,3 +162,36 @@ var navhr = document.getElementById("hrId");
                 }
             });
 };
+
+
+//获取用户角色权限
+function getResource(username){
+    $.ajax({
+        headers: {
+                    "X-Auth-Token":token
+                    },
+        url:"http://localhost/ymm/admin/resource?userName="+username,
+        contentType: "application/json",
+        type:"get",
+        dataType:"json",
+        success:function(data){
+            if(data.code == "200"){
+                console.log("获取权限接口返回数据：")
+                console.log(data)
+                if(data.data.weight>=5){
+                    document.getElementById("newsId").style.display="flex";
+                    console.log("全部展示")
+
+                }else if(data.data.weight<=1){
+                    document.getElementById("jobEnterId").style.display="none";
+                    document.getElementById("jobApplyId").style.display="none";
+                }else{
+                    document.getElementById("jobEnterId").style.display="none";
+                  
+                }
+               }else {
+                alert("没有正确获取到权限...");
+            }    
+        }
+    });
+}
