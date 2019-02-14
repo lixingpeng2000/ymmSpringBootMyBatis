@@ -2,10 +2,12 @@
 /target/ 
 /lib/
 /log/
-
+/.mvn/
 .classpath
 .project
-.settings      
+.settings 
+mvnw
+mvnw.cmd     
  ##filter databfile、sln file##
 *.mdb  
 *.ldb  
